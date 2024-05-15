@@ -32,4 +32,8 @@ label_address.grid(row=3, column=0)
 entry_address = tk.Entry(root)
 entry_address.grid(row=3, column=1)
 
+# BUTTON
+add_button = tk.Button(root, text="Add")
+add_button.grid(row=4, column=1)
+
 root.mainloop()
