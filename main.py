@@ -20,4 +20,20 @@ def create_table():
     conn.commit()
     conn.close()
 
-create_table
+def insert_data():
+    conn = psycopg2.connect(
+        dbname="student",
+        user="postgres",
+        password="admin",
+        host="localhost",
+        port="5432"
+    )
+
+    cur = conn.cursor()    
+    cur.execute('''INSERT INTO teacher(name, age, address)
+                VALUES ('McGonagallová', 50, 'Bradavice')''')
+
+    conn.commit()
+    conn.close()
+
+insert_data()
