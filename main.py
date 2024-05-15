@@ -1,6 +1,6 @@
 import psycopg2
 
-'''CREATE TABLE FUNCTION'''
+# CREATE TABLE FUNCTION
 def create_table():
     conn = psycopg2.connect(
         dbname="student",
@@ -22,7 +22,7 @@ def create_table():
     conn.commit()
     conn.close()
 
-'''INSERT DATA FUNCTION'''
+# INSERT DATA FUNCTION
 def insert_data():
     conn = psycopg2.connect(
         dbname="student",
