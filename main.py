@@ -23,7 +23,7 @@ def create_table():
     conn.close()
 
 '''INSERT DATA FUNCTION'''
-def insert_data(teacher_name, teacher_age, teacher_address):
+def insert_data():
     conn = psycopg2.connect(
         dbname="student",
         user="postgres",
@@ -31,6 +31,10 @@ def insert_data(teacher_name, teacher_age, teacher_address):
         host="localhost",
         port="5432"
     )
+
+    teacher_name = input("Teacher name: ")
+    teacher_age = input("Teacher age: ")
+    teacher_address = input("Teacher address: ")
 
     # INSERT DATA COMMAND
     cur = conn.cursor()    
@@ -41,4 +45,4 @@ def insert_data(teacher_name, teacher_age, teacher_address):
     conn.commit()
     conn.close()
 
-insert_data("Lockhart", 35, "Bradavice")
+insert_data()
