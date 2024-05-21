@@ -23,9 +23,9 @@ def insert_data(name, age, address):
     query = ('''INSERT INTO teacher(name, age, address)
                 VALUES (%s, %s, %s)''')
     cur.execute(query, (name, age, address))
-
     conn.commit()
     conn.close()
+    display_all()
 
 # search by id 
 def search(id):
@@ -51,6 +51,28 @@ def display_search(data):
     listbox = tk.Listbox(root, width=20, height=1)
     listbox.grid(row=8, column=1)
     listbox.insert(0, data)
+
+# display all 
+def display_all():
+    conn = psycopg2.connect(
+        dbname="student",
+        user="postgres",
+        password="admin",
+        host="localhost",
+        port="5432"
+    )
+
+    # command
+    cur = conn.cursor()
+    query = '''SELECT * FROM teacher'''
+    cur.execute(query)
+    all_data = cur.fetchall()
+    listbox = tk.Listbox(root, width=25, height=5)
+    listbox.grid(row=9, column=1)
+    for one_row in all_data:
+        listbox.insert(0, one_row)
+
+display_all()
 
 ## ADD DATA SECTION
 # general label
