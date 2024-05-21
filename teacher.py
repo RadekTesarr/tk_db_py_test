@@ -7,7 +7,8 @@ root.title("School and database")
 root.geometry("300x280")
 root.resizable(False, False)
 
-# functions
+## FUNCTIONS
+# insert data 
 def insert_data(name, age, address):
     conn = psycopg2.connect(
         dbname="student",
@@ -17,7 +18,7 @@ def insert_data(name, age, address):
         port="5432"
     )
 
-    # insert data command 
+    # command 
     cur = conn.cursor()    
     query = ('''INSERT INTO teacher(name, age, address)
                 VALUES (%s, %s, %s)''')
@@ -25,6 +26,31 @@ def insert_data(name, age, address):
 
     conn.commit()
     conn.close()
+
+# search by id 
+def search(id):
+    conn = psycopg2.connect(
+        dbname="student",
+        user="postgres",
+        password="admin",
+        host="localhost",
+        port="5432"
+    )
+
+    # command
+    cur = conn.cursor()
+    query = '''SELECT * FROM teacher WHERE id = %s'''
+    cur.execute(query, (id))
+    row = cur.fetchone()
+    display_search(row)
+    conn.commit()
+    conn.close()
+
+# listbox search data
+def display_search(data):
+    listbox = tk.Listbox(root, width=20, height=1)
+    listbox.grid(row=8, column=1)
+    listbox.insert(0, data)
 
 ## ADD DATA SECTION
 # general label
@@ -56,7 +82,7 @@ entry_address.grid(row=3, column=1)
 button_add = tk.Button(root, text="Add", command=lambda:insert_data(entry_name.get(), entry_age.get(), entry_address.get()))
 button_add.grid(row=4, column=1)
 
-# SEARCH SECTION
+## SEARCH SECTION
 # general label
 label_search = tk.Label(root, text="Search data")
 label_search.grid(row=5, column=1)
@@ -69,7 +95,7 @@ entry_id = tk.Entry(root)
 entry_id.grid(row=6, column=1)
 
 # search button
-button_search = tk.Button(root, text="Search")
+button_search = tk.Button(root, text="Search", command=lambda:search(entry_id.get()))
 button_search.grid(row=6, column=2)
 
 root.mainloop()
