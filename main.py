@@ -1,6 +1,6 @@
 import psycopg2
 
-# CREATE TABLE FUNCTION
+# create table function
 def create_table():
     conn = psycopg2.connect(
         dbname="student",
@@ -10,7 +10,7 @@ def create_table():
         port="5432"
     )
 
-    # CREATE TABLE COMMAND
+    # create table command 
     cur = conn.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS teacher(
                 id SERIAL,
@@ -22,7 +22,7 @@ def create_table():
     conn.commit()
     conn.close()
 
-# INSERT DATA FUNCTION
+# insert data function
 def insert_data():
     conn = psycopg2.connect(
         dbname="student",
@@ -36,7 +36,7 @@ def insert_data():
     teacher_age = input("Teacher age: ")
     teacher_address = input("Teacher address: ")
 
-    # INSERT DATA COMMAND
+    # insert data command
     cur = conn.cursor()    
     query = ('''INSERT INTO teacher(name, age, address)
                 VALUES (%s, %s, %s)''')

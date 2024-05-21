@@ -1,13 +1,13 @@
 import tkinter as tk
 import psycopg2
 
-# MAIN WINDOW
+# main window
 root = tk.Tk()
 root.title("School and database")
-root.geometry("320x280")
+root.geometry("300x280")
 root.resizable(False, False)
 
-# FUNCTIONS
+# functions
 def insert_data(name, age, address):
     conn = psycopg2.connect(
         dbname="student",
@@ -17,7 +17,7 @@ def insert_data(name, age, address):
         port="5432"
     )
 
-    # INSERT DATA COMMAND
+    # insert data command 
     cur = conn.cursor()    
     query = ('''INSERT INTO teacher(name, age, address)
                 VALUES (%s, %s, %s)''')
@@ -26,34 +26,50 @@ def insert_data(name, age, address):
     conn.commit()
     conn.close()
 
-# LABELS, ENTRIES
+## ADD DATA SECTION
+# general label
 label_general = tk.Label(root, text="Add data")
 label_general.grid(row=0, column=1)
 
-# ADD NAME SECTION
+# add name 
 label_name = tk.Label(root, text="Name: ")
 label_name.grid(row=1, column=0)
 
 entry_name = tk.Entry(root)
 entry_name.grid(row=1, column=1)
 
-# ADD AGE SECTION
+# add age
 label_age = tk.Label(root, text="Age: ")
 label_age.grid(row=2, column=0)
 
 entry_age = tk.Entry(root)
 entry_age.grid(row=2, column=1)
 
-# ADD ADDRESS SECTION
+# add address
 label_address = tk.Label(root, text="Address: ")
 label_address.grid(row=3, column=0)
 
 entry_address = tk.Entry(root)
 entry_address.grid(row=3, column=1)
 
-# BUTTON
-add_button = tk.Button(root, text="Add", command=lambda:insert_data(entry_name.get(), entry_age.get(), entry_address.get()))
-add_button.grid(row=4, column=1)
+# add data button
+button_add = tk.Button(root, text="Add", command=lambda:insert_data(entry_name.get(), entry_age.get(), entry_address.get()))
+button_add.grid(row=4, column=1)
 
+# SEARCH SECTION
+# general label
+label_search = tk.Label(root, text="Search data")
+label_search.grid(row=5, column=1)
+
+# ID section
+label_id = tk.Label(root, text="Search by ID: ")
+label_id.grid(row=6, column=0)
+
+entry_id = tk.Entry(root)
+entry_id.grid(row=6, column=1)
+
+# search button
+button_search = tk.Button(root, text="Search")
+button_search.grid(row=6, column=2)
 
 root.mainloop()
