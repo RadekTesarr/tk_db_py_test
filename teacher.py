@@ -10,6 +10,10 @@ root.resizable(False, False)
 ## FUNCTIONS
 # insert data 
 def insert_data(name, age, address):
+    entry_name.delete(0, tk.END)
+    entry_age.delete(0, tk.END)
+    entry_address.delete(0, tk.END)
+
     conn = psycopg2.connect(
         dbname="student",
         user="postgres",
@@ -48,7 +52,7 @@ def search(id):
 
 # listbox search data
 def display_search(data):
-    listbox = tk.Listbox(root, width=20, height=1)
+    listbox = tk.Listbox(root, width=25, height=1)
     listbox.grid(row=8, column=1)
     listbox.insert(0, data)
 
@@ -117,7 +121,7 @@ entry_id = tk.Entry(root)
 entry_id.grid(row=6, column=1)
 
 # search button
-button_search = tk.Button(root, text="Search", command=lambda:search(entry_id.get()))
+button_search = tk.Button(root, text="Search", command=lambda:search(entry_id.get()) if entry_id.get().strip() else None)
 button_search.grid(row=6, column=2)
 
 root.mainloop()
