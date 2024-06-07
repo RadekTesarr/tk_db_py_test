@@ -44,9 +44,12 @@ def search(id):
     # command
     cur = conn.cursor()
     query = '''SELECT * FROM teacher WHERE id = %s'''
-    cur.execute(query, (id))
+    cur.execute(query, (id,))
     row = cur.fetchone()
-    display_search(row)
+    if row:
+        display_search(row)
+    else:
+        display_search("ID not found")
     conn.commit()
     conn.close()
 
@@ -73,6 +76,13 @@ def display_all():
     all_data = cur.fetchall()
     listbox = tk.Listbox(root, width=25, height=5)
     listbox.grid(row=9, column=1)
+
+    # scrollbar
+    scrollbar = tk.Scrollbar(root)
+    scrollbar.grid(row=9, column=2, sticky="nsw")
+    listbox.config(yscrollcommand=scrollbar.set)
+    scrollbar.config(command=listbox.yview)
+
     for one_row in all_data:
         listbox.insert(0, one_row)
 
@@ -101,7 +111,7 @@ entry_age.grid(row=2, column=1)
 label_address = tk.Label(root, text="Address: ")
 label_address.grid(row=3, column=0)
 
-entry_address = tk.Entry(root)
+entry_address = tk.Entry(root) 
 entry_address.grid(row=3, column=1)
 
 # add data button
